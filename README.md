@@ -1,46 +1,115 @@
 <h1 align="center">
-   Employee_Management_System
+   Employee Management App
 </h1>
 
-Sistema **Java** desenvolvido para o gerenciamento de colaboradores de uma empresa.    
-Nele foram colocados em prática conceitos da **programação orientada a objetos** como **abstração, encapsulamento, composição** e **polimorfirsmo.**   
+O Employee Management App é um sistema desenvolvido em Java que gerencia colaboradores de uma empresa. Ele oferece funcionalidades para cadastrar, calcular bonificações e exibir informações detalhadas sobre diferentes tipos de funcionários , como CLT e PJ.   
 
-<h2>Requisitos</h2>
+## Requisitos
 
-<p>
-✅ Sintaxe Java<br>
-✅ Java JDK 8+<br>
-✅ IDE para desenvolvimento Java <br>
-</p>
+- Sintaxe Java
+- Java JDK 8+
+- IDE para desenvolvimento Java
 
-<h2>Contexto</h2>
+## Estrutura do Projeto   
 
-<p>Modelar as entidades de uma aplicação de <strong>Gerenciamento de Colaboradores</strong> de uma loja.<br>
-Dentre as outras funcionalidades (as quais você não precisará implementar), esse sistema terá a funcionalidade de calcular a bonificação dos colaboradores dessa loja seguindo as seguintes regras:</p>
+**Pacote** me.dio.models   
 
-<ul>
-    <li>Vendedor é um Funcionário CLT e tem o benefício de bonificação.</li>
-    <li>Operador de Caixa é um funcionário CLT, mas não tem o benefício da bonificação.</li>
-    <li>Gerente é um Funcionário PJ e tem o benefício da bonificação.</li>
-</ul>
+O pacote contém as seguintes classes e interfaces:
 
-<h3>Colaboradores</h3>
-<ol>
-    <li>Vendedor:</li> nome, documento, salario, valor da bonificação e endereço.
-    <li>Operador de Caixa:</li> nome, documento, salario e endereço.
-    <li>Gerente:</li> nome, documento, horas trabalhadas, valorHora, endereço e valor da bonificação.
-</ol>
+- CalcularBonificacao **(Interface)**
+Define o método calcularBonificacao(Double porcentagemBonificacao) para implementar o cálculo de bonificação.
 
-## Conceitos de Orientação a Objetos utilizados
- 
-### Abstração
-Habilidade de concentrar-se nos aspectos essenciais de um domínio, ignorando características menos importantes ou acidentais.
+- Endereco **(Classe)**
+Representa o endereço de um colaborador com os atributos:
 
-### Encapsulamento
-O encapsulamento permite proteger o seu código evitando acessos indevidos a determinadas implementações e favorece a manutenção e a evolução.
+   - rua, bairro e complemento.
+- FuncionarioCLT **(Classe)**
+Classe base para funcionários CLT, com atributos:
 
-### Herança
-Permite o reaproveitamento de código. Nela você pode definir uma classe filha (derivada) que estende ou modifica o comportamento da classe pai.
+   - nome, documento, valorSalario e endereco.
+- FuncionarioPJ **(Classe)**
+Classe base para funcionários PJ, com atributos:
 
-### Polimorfismo
-Polimorfismo é um princípio a partir do qual as classes derivadas de uma única classe base são capazes de invocar os métodos que, embora apresentem a mesma assinatura, comportam-se de maneira diferente para cada uma das classes derivadas.
+   - nome, documento, horasTrabalhadas, valorHora, valorRemuneracao e complemento.
+   - Método calculaRemuneracao() para calcular o valor da remuneração.
+- Gerente **(Classe)**
+Extende FuncionarioPJ e implementa CalcularBonificacao.
+Adiciona o cálculo de bonificação com um bônus fixo de 100.
+
+- OperadorDeCaixa **(Classe)**
+Extende FuncionarioCLT.
+Representa colaboradores operacionais da empresa.
+
+- Vendedor **(Classe)**
+Extende FuncionarioCLT e implementa CalcularBonificacao.
+Adiciona o cálculo de bonificação com base no salário.
+
+- Main **(Classe)**
+Classe principal que demonstra:
+
+   - Instanciação de objetos.
+   - Configuração de atributos.
+   - Uso de métodos das classes.   
+
+
+## Funcionamento   
+
+**Exemplo de Instanciação   
+
+No método **main, exemplos incluem:   
+
+### 1. Criando um Endereço:   
+
+```   
+
+Endereco endereco = new Endereco("Rua do Horto", "Bairro do Ferroviários", "complemento");   
+
+```   
+
+### 2. Criando um Vendedor e calculando bonificação:   
+
+```   
+Vendedor vendedor = new Vendedor();
+vendedor.setNome("José");
+vendedor.setDocumento("123.456.789-00");
+vendedor.setValorSalario(2100.00);
+vendedor.setEndereco(endereco);
+vendedor.calcularBonificacao(2d);
+
+```   
+
+### 3. Criando um Gerente e calculando remuneração e bonificação:   
+
+```   
+Gerente gerente = new Gerente();
+gerente.setNome("Flávia");
+gerente.setDocumento("789.123.456-00");
+gerente.setHorasTrabalhadas(20d);
+gerente.setValorHora(100d);
+gerente.calculaRemuneracao();
+gerente.calcularBonificacao(3d); 
+
+```   
+
+## Tecnologias Utilizadas   
+
+- **Linguagem:** Java   
+- **Paradigmas:** Orientação a Objetos (Herança, Polimorfismo e Interfaces)   
+
+## Como Executar   
+
+1. Clone o repositório e navegue até a pasta employee-management-app.   
+2. Compile o projeto:   
+
+```   
+javac -d bin src/me/dio/models/*.java
+
+```   
+
+3. Execute o programa:   
+
+```   
+java -cp bin me.dio.models.Main
+
+```   
+
